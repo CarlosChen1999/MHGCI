@@ -34,7 +34,7 @@ python train.py --load_path <weight_path> --wandb_use False
 ## Overall Performance
 
 ```shell
-cd /home/user/cdq/FactKG/with_evidence/classifier
+cd /with_evidence/classifier
 python baseline.py --data_path <dataset_path> --kg_path <kg_path.pickle> --mode train
 ```
 

@@ -47,18 +47,18 @@ def train_model(args,model,train_dataloader, dev_dataloader, test_dataloader,dev
         for data in tqdm(train_dataloader, desc=f'Training epoch{epoch}', leave=False):
             inputs, lab_tensor = data
             inputs = {'input_ids': inputs[0].to(args.device),
-                  'attention_mask': inputs[1].to(args.device),
-                  'pos': inputs[2],
-                  'hts': inputs[3],
-                  'entity':inputs[4].to(args.device),
-                  'entity_mask':inputs[5].to(args.device),
-                  'entity_num':inputs[6],
-                  'input_unk_ids':inputs[7].to(args.device),
-                  'input_unk_mask':inputs[8].to(args.device),
-                  'labels':lab_tensor,
+                    'attention_mask': inputs[1].to(args.device),
+                    'pos': inputs[2],
+                    'hts': inputs[3],
+                    'entity':inputs[4].to(args.device),
+                    'entity_mask':inputs[5].to(args.device),
+                    'entity_num':inputs[6],
+                    'input_unk_ids':inputs[7].to(args.device),
+                    'input_unk_mask':inputs[8].to(args.device),
+                    'labels':lab_tensor,
                 #   'relations':relation_ids.to(args.device),
                 #   'relations_mask':relation_ids_mask.to(args.device)
-                  }
+                }
             # prob = model(inputs)
             # loss = F.nll_loss(prob, lab_tensor)
             loss,_ = model(**inputs)
@@ -132,7 +132,7 @@ def eval_model(model, validset_reader,dataset):
     # recall = recall_score(lab_tensors_flatten, preds_flatten)
     # f1 = f1_score(lab_tensors_flatten, preds_flatten)
 
-    with open('/home/user/cdq/FactKG/with_evidence/retrieve/model/relation_predict/relations_for_final.pickle', mode='rb') as f:
+    with open('../data/relations_for_final.pickle', mode='rb') as f:
         relations = pickle.load(f)
     claims={}
     entity={}
@@ -165,7 +165,7 @@ def eval_model(model, validset_reader,dataset):
         
         i+=1
 
-    with open('/home/user/cdq/FactKG/retrieved/dev_class.json', mode='rb') as f:
+    with open('./dev_class.json', mode='rb') as f:
         dev_gts = json.load(f)
     gts = [value for key,value in dev_gts["relation"].items()]
     prs = [value for key,value in output.items()]
@@ -222,7 +222,7 @@ def eval_report(model, validset_reader,dataset,type=None):
         preds=np.concatenate(preds, axis=0).astype(np.float32)
 
         # 自己分析问题
-        with open('/home/user/cdq/FactKG/with_evidence/retrieve/model/relation_predict/relations_for_final.pickle', mode='rb') as f:
+        with open('../data/relations_for_final.pickle', mode='rb') as f:
             relations = pickle.load(f)
         res = []
         k=0
@@ -282,7 +282,7 @@ def eval_report(model, validset_reader,dataset,type=None):
             i+=1
 
         if type=='dev':
-            with open('/home/user/cdq/FactKG/retrieved/dev_class.json', mode='rb') as f:
+            with open('./dev_class.json', mode='rb') as f:
                 dev_gts = json.load(f)
             gts = [value for key,value in dev_gts["relation"].items()]
             prs = [value for key,value in output.items()]
@@ -391,7 +391,7 @@ if __name__=='__main__':
     args.n_gpu = torch.cuda.device_count()
     tokenizer = BertTokenizer.from_pretrained(args.model_name_or_path)
 
-    with open('/home/user/cdq/FactKG/with_evidence/retrieve/model/relation_predict/relations_for_final.pickle', mode='rb') as f:
+    with open('../data/relations_for_final.pickle', mode='rb') as f:
         relations = pickle.load(f)
     args.n_labels = len(relations)+1
     

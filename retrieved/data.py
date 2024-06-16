@@ -11,7 +11,7 @@ class FactKG_Retrieve(Dataset):
     def __init__(self, dataset_path, type, tokenizer):
         with open(f'{dataset_path}/{type}.json', mode='r', encoding='utf8') as f:
             dataset = json.load(f)
-        with open('/home/user/cdq/FactKG/with_evidence/retrieve/model/relation_predict/relations_for_final.pickle', mode='rb') as f:
+        with open('../data/relations_for_final.pickle', mode='rb') as f:
             relations = pickle.load(f)
         self.type = type
         self.tokenizer = tokenizer

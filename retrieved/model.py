@@ -81,7 +81,11 @@ class REModel(nn.Module):
         attention = output[-1][-1]
         return sequence_output, attention
 
-
+    def random_noise(self,input_tensor, epsilon=1e-20):
+        u = torch.rand_like(input_tensor)
+        # g = -torch.log(-torch.log(u + epsilon) + epsilon)
+        g=u
+        return g
     def vae_loss_function(self,recon_x, x, mu, logvar):
         BCE = F.mse_loss(recon_x, x)
         return BCE
