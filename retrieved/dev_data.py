@@ -72,12 +72,4 @@ if __name__=='__main__':
         with open("dev_class.json", "w") as fh:
             json.dump({'claims': claims, 'entity': entities, 'relation': relations}, fh)
 
-    with open('./result_eval.json', mode='rb') as f:
-        pre = json.load(f)
-
-    # for id,value in entities.items():
-    #     if pre['entity'][id]!=entities[id]:
-    #         print(id)
-
-            
 
