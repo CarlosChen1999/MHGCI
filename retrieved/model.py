@@ -126,9 +126,9 @@ class REModel(nn.Module):
 
             # 注意力机制
             batch_size = hs.size(0)
-            query = F.relu(self.linear_query(ts-ts_unk)).view(batch_size, -1, self.num_heads, self.emb_size).transpose(1, 2)
+            query = F.relu(self.linear_query(ts)).view(batch_size, -1, self.num_heads, self.emb_size).transpose(1, 2)
             key = F.relu(self.linear_key(hs)).view(batch_size, -1, self.num_heads, self.emb_size).transpose(1, 2)
-            value = F.relu(self.linear_value(ts-ts_unk)).view(batch_size, -1, self.num_heads, self.emb_size).transpose(1, 2)
+            value = F.relu(self.linear_value(ts)).view(batch_size, -1, self.num_heads, self.emb_size).transpose(1, 2)
 
             scores = torch.matmul(query, key.transpose(-2, -1)) / torch.sqrt(torch.tensor(self.emb_size, dtype=torch.float32))
 
@@ -136,7 +136,7 @@ class REModel(nn.Module):
             weighted_sum = torch.matmul(attention_weights, value)+torch.matmul(1-attention_weights,self.random_noise(value))/ torch.sqrt(torch.tensor(self.emb_size, dtype=torch.float32))
             weighted_sum = weighted_sum.transpose(1, 2).contiguous().view(batch_size, -1, self.num_heads * self.emb_size)#合并多头
 
-            output = F.relu(self.linear_final(weighted_sum))+ts_unk
+            output = F.relu(self.linear_final(weighted_sum))
             ts_change=torch.squeeze(output,1)
 
             hss.append(hs)
