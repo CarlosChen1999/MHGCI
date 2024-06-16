@@ -3,7 +3,7 @@ Fact verification (FV) via reasoning on knowledge graph (KG) retrieve the eviden
 
 ## Getting Started
 ### Dataset
-You can download the FactKG dataset [here](https://drive.google.com/drive/folders/1q0_MqBeGAp5_cBJCBf_1alYaYm14OeTk?usp=share_link). Place the dataset file in the data folder.
+You can download the FactKG dataset [here](https://drive.google.com/drive/folders/1q0_MqBeGAp5_cBJCBf_1alYaYm14OeTk?usp=share_link). Create a new `data` folder and place the dataset in this folder
 
 ### Environment
 
