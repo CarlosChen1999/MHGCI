@@ -152,9 +152,7 @@ def eval_model(model, validset_reader,dataset):
                 
                 if entity1 !='-' and relation not in entity_relation[entity1] :
                     entity_relation[entity1].append(relation)
-                # if entity2 !='-' and inverse_relationship(relation) not in entity_relation[entity2]:
-                #     entity_relation[entity2].append(inverse_relationship(relation))
-            #TODO 这里负样本也会进去，确认下是否要加进去
+                
             k+=1
 
         for key,value in entity_relation.items():
@@ -267,9 +265,7 @@ def eval_report(model, validset_reader,dataset,type=None):
                 # 记录path
                 if entity1 !='-' and [relations[q] for q in np.nonzero(preds[k] == 1)[0]] not in entity_relation_path[entity1]:
                     entity_relation_path[entity1].append([relations[q] for q in np.nonzero(preds[k] == 1)[0]])
-                # if entity2 !='-' and [inverse_relationship(relations[q]) for q in np.nonzero(preds[k] == 1)[0]] not in entity_relation_path[entity2]:
-                #     entity_relation_path[entity2].append([inverse_relationship(relations[q]) for q in np.nonzero(preds[k] == 1)[0]])
-                #TODO 这里负样本也会进去，确认下是否要加进去
+                
                 k+=1
 
             for key,value in entity_relation.items():

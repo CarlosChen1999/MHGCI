@@ -12,7 +12,6 @@ def set_seed(args):
 def collate_fn(batch):
     max_len = max([len(f["input_ids"]) for f in batch])
     input_ids = [f["input_ids"] + [0] * (max_len - len(f["input_ids"])) for f in batch]
-    # TODO[unk]
     input_unk_ids = [torch.concat((torch.tensor(f["input_unk_ids"], dtype=torch.long),torch.zeros(len(f["input_unk_ids"]), max_len - len(f["input_unk_ids"][0]), dtype=torch.long)),dim=1) for f in batch]
     input_unk_ids = torch.cat(input_unk_ids,dim=0)
     input_unk_mask = [torch.concat((torch.ones_like(torch.tensor(f["input_unk_ids"], dtype=torch.float)),torch.zeros(len(f["input_unk_ids"]), max_len - len(f["input_unk_ids"][0]), dtype=torch.float)),dim=1) for f in batch]
